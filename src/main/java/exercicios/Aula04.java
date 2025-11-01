@@ -3,6 +3,8 @@ package exercicios;
 import exercicios.base.Aula;
 import lombok.NonNull;
 
+import java.util.Objects;
+import java.util.OptionalDouble;
 import java.util.stream.Stream;
 
 /**
@@ -48,29 +50,51 @@ public class Aula04 extends Aula {
     }
 
     protected double maiorNotaCursoAndSexo(@NonNull final Stream<Estudante> stream, @NonNull final Curso curso, final char sexo) {
-        // TODO: Você precisa implementar este método. Apague estas linhas e escreva o código correto.
+        OptionalDouble maior = stream
+                .filter(e -> Objects.equals(e.getCurso(), curso))
+                .filter(e -> e.getSexo() == sexo)
+                .mapToDouble(Estudante::getNota)
+                .max();
+
+        if (maior.isPresent()) {
+            return maior.getAsDouble();
+        }
         return -1;
     }
 
     protected long totalEstudantesCursoAndSexo(@NonNull final Stream<Estudante> stream, @NonNull final Curso curso, final char sexo) {
-        // TODO: Você precisa implementar este método. Apague estas linhas e escreva o código correto.
-        return -1;
+        return stream
+                .filter(e -> Objects.equals(e.getCurso(), curso))
+                .filter(e -> e.getSexo() == sexo)
+                .count();
     }
 
     protected double mediaNotaTodosEstudantesCurso(@NonNull final Stream<Estudante> stream, @NonNull final Curso curso){
-        // TODO: Você precisa implementar este método. Apague estas linhas e escreva o código correto.
+        OptionalDouble media = stream
+                .filter(e -> Objects.equals(e.getCurso(), curso))
+                .mapToDouble(Estudante::getNota)
+                .average();
+
+        if (media.isPresent()) {
+            return media.getAsDouble();
+        }
         return -1;
     }
 
     protected double maiorNotaTodosEstudantes(@NonNull final Stream<Estudante> stream){
-        // TODO: Você precisa implementar este método. Apague estas linhas e escreva o código correto.
-        return -1;
+        return stream
+                .mapToDouble(Estudante::getNota)
+                .max()
+                .orElse(-1);
     }
 
 
     protected double maiorNotaHomens(@NonNull final Stream<Estudante> stream){
-        // TODO: Você precisa implementar este método. Apague estas linhas e escreva o código correto.
-        return -1;
+        return stream
+                .filter(e -> e.getSexo() == 'M')
+                .mapToDouble(Estudante::getNota)
+                .max()
+                .orElse(-1);
     }
 }
 
