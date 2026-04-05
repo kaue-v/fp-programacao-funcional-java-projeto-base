@@ -63,7 +63,7 @@ public class Aula06 extends Aula {
     /**
      * Veja o método construtor {@link #Aula06()}.
      */
-    public static void main(String[] args) {
+    void main() {
         new Aula06();
     }
 
